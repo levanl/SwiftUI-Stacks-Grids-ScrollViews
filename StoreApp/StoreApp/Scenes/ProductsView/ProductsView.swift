@@ -12,6 +12,8 @@ struct ProductsView: View {
     let category: String
     @EnvironmentObject private var viewModel: MainViewModel
     
+    @Binding var path: NavigationPath
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -38,7 +40,11 @@ struct ProductsView: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
                         ForEach(viewModel.products.filter { $0.category == category }) { product in
-                            ProductCardComponentView(product: product)
+                            NavigationLink {
+                                ProductDetailView(product: product, path: $path)
+                            } label: {
+                                ProductCardComponentView(product: product)
+                            }
                         }
                     }
                     .padding()
@@ -51,7 +57,3 @@ struct ProductsView: View {
     }
 }
 
-#Preview {
-    ProductsView(category: "laptops")
-        .environmentObject(MainViewModel())
-}

@@ -90,7 +90,7 @@ struct MainView: View {
             
             CategoriesView()
                 .tabItem {
-                    Image(systemName: "3.circle")
+                    Image(systemName: "menucard")
                     Text("Categories")
                 }
         }
