@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct ProductDetailView: View {
+    
+    // MARK: - Properties
     @EnvironmentObject private var viewModel: MainViewModel
     let product: Product
     @Binding var path: NavigationPath
     
+    // MARK: - Body
     var body: some View {
         VStack {
             AsyncImage(
@@ -45,12 +48,6 @@ struct ProductDetailView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray, lineWidth: 1)
             )
-            
         }
     }
 }
-
-//#Preview {
-//    ProductDetailView(product: Product(id: 10, title: "Iphone 9 pro", description: "vava magqria", price: 3900, discountPercentage: 20.00, rating: 9.0, stock: 30, brand: "Iphone", category: "Phones", thumbnail: "Phone", images: ["https://i.dummyjson.com/data/products/2/thumbnail.jpg"]))
-//        .environmentObject(MainViewModel())
-//}

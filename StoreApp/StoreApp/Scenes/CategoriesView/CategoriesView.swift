@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoriesView: View {
     
+    // MARK: - Properties
     @EnvironmentObject private var viewModel: MainViewModel
     
     @State private var path = NavigationPath()
@@ -18,21 +19,18 @@ struct CategoriesView: View {
         GridItem(.flexible(), spacing: nil, alignment: nil)
     ]
     
+    // MARK: - Body
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(viewModel.categories) { category in
-                        
                         NavigationLink(value: category) {
                             CategoryCardComponentView(category: category)
                         }
-                            
                     }
                     .navigationTitle("Categories")
                     .padding(.vertical)
-                    .border(Color.black)
-                    
                 }
                 .navigationDestination(for: Category.self) { category in
                     ProductsView(category: category.name, path: $path)

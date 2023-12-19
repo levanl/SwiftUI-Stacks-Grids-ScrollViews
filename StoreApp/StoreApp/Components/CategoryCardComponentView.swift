@@ -9,10 +9,12 @@ import SwiftUI
 
 struct CategoryCardComponentView: View {
     
+    // MARK: - Properties
     let category: Category
     
     @EnvironmentObject private var viewModel: MainViewModel
     
+    // MARK: - Body
     var body: some View {
         VStack(alignment: .leading) {
             Image("phones")

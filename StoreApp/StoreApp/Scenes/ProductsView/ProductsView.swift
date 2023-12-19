@@ -9,49 +9,42 @@ import SwiftUI
 
 struct ProductsView: View {
     
+    // MARK: - Properties
     let category: String
     @EnvironmentObject private var viewModel: MainViewModel
     
     @Binding var path: NavigationPath
     
+    let columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 20, alignment: nil),
+        GridItem(.flexible(), spacing: nil, alignment: nil)
+    ]
+    
+    // MARK: - Body
     var body: some View {
         NavigationView {
             VStack {
                 
-                HStack {
-                    Text("Bal: ₾\(viewModel.balance)")
-                    
-                    Spacer()
-                    
-                    Image(systemName: "cart.fill")
-                        .foregroundColor(.blue)
-                        .font(.system(size: 30))
-                    Text("Cart (\(viewModel.totalItems))")
-                        .font(.headline)
-                        .foregroundColor(.blue)
-                    
-                }
-                .padding()
+                topBarView()
                 
                 Text("Products in \(category)")
                     .font(.title)
                     .padding()
                 
                 ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                    LazyVGrid(columns: columns) {
                         ForEach(viewModel.products.filter { $0.category == category }) { product in
                             NavigationLink {
                                 ProductDetailView(product: product, path: $path)
                             } label: {
                                 ProductCardComponentView(product: product)
+                                    .padding(.vertical)
                             }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                     .padding()
                 }
-                
-                Text("Total: \(viewModel.totalPrice) ₾")
-                
             }
         }
     }

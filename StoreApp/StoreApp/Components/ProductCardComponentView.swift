@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ProductCardComponentView: View {
     
+    // MARK: - Properties
     @EnvironmentObject private var viewModel: MainViewModel
     let product: Product
     
+    // MARK: - Body
     var body: some View {
         VStack(spacing: 10) {
             AsyncImage(

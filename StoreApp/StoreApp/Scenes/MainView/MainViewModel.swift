@@ -16,8 +16,9 @@ struct CartItem {
 }
 
 
-class MainViewModel: ObservableObject {
+final class MainViewModel: ObservableObject {
     
+    // MARK: - Properties
     @Published var products: [Product] = []
     @Published var cartItems: [CartItem] = []
     @Published var categories: [Category] = []
@@ -43,6 +44,7 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Init
     init() {
         fetchProducts()
     }
@@ -64,7 +66,7 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Add Product
+    // MARK: - Add Product func
     func addProduct(for product: Product) {
         if let index = cartItems.firstIndex(where: { $0.productName == product.title }) {
             cartItems[index].quantity += 1
@@ -79,7 +81,7 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Decrement Product
+    // MARK: - Decrement Product func
     func decrementProduct(for product: Product) {
         if let index = cartItems.firstIndex(where: { $0.productName == product.title }) {
             cartItems[index].quantity -= 1
@@ -93,7 +95,7 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Disable Decrement Button
+    // MARK: - Disable Decrement Button func
     func isDecrementButtonEnabled(for product: Product) -> Bool {
         if let cartIndex = cartItems.firstIndex(where: { $0.productName == product.title }) {
             return cartItems[cartIndex].quantity > 0
@@ -104,7 +106,7 @@ class MainViewModel: ObservableObject {
     // MARK: - Checkout Func
     func checkOut() {
         guard balance >= totalPrice else {
-            showAlert(message: "Not enough balance to purchase this item.", type: .error)
+            showAlert(message: "Not enough balance to purchase this item", type: .error)
             return
         }
         
@@ -117,17 +119,19 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Show Alert Func
     private func showAlert(message: String, type: AlertType) {
         alertMessage = message
         alertType = type
         showAlert = true
     }
     
+    // MARK: - Alert Type
     enum AlertType {
         case success, error
     }
     
-    
+    // MARK: - Extract Categories Func
     func extractCategories() {
         let categorySet = Set(products.map { $0.category })
         categories = categorySet.map { Category(name: $0) }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: - CategoryModel
 struct Category: Identifiable, Hashable {
     let id = UUID()
     let name: String
